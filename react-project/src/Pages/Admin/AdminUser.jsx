@@ -44,7 +44,7 @@ const AdminUsers = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch(`${BaseUrl}}/users`);
+      const response = await fetch(`${BaseUrl}/users`);
       const usersData = await response.json();
       setUsers(usersData);
     } catch (err) {

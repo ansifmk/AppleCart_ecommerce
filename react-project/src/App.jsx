@@ -20,7 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "./Context/Authcontext";
 import ProtectedRoute from "./Context/ProtectedRoute";
 import About from "./Pages/About";
-import AdminLayout from "./Pages/admin/AdminLayout.jsx";
+import AdminLayout from "./Pages/Admin/AdminLayout";
 
 function AppContent() {
   const location = useLocation();

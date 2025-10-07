@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../Context/Authcontext";
 import { toast } from "react-toastify";
+import { BaseUrl } from "../Services/api";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -14,7 +15,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/products/${id}`)
+      .get(`${BaseUrl}/products/${id}`)
       .then((res) => setProduct(res.data))
       .catch((err) => {
         console.error(err);
@@ -43,8 +44,8 @@ const ProductDetails = () => {
       };
 
       await Promise.all([
-        axios.patch(`http://localhost:3001/users/${user.id}`, { cart: updatedCart }),
-        axios.patch(`http://localhost:3001/products/${product.id}`, {
+        axios.patch(`${BaseUrl}/users/${user.id}`, { cart: updatedCart }),
+        axios.patch(`${BaseUrl}/products/${product.id}`, {
           count: Math.max(0, product.count - 1),
         }),
       ]);
@@ -75,7 +76,7 @@ const ProductDetails = () => {
     };
 
     try {
-      await axios.patch(`http://localhost:3001/users/${user.id}`, { wishlist: updatedWishlist });
+      await axios.patch(`${BaseUrl}/users/${user.id}`, { wishlist: updatedWishlist });
       setUser(updatedUser);
       localStorage.setItem("user", JSON.stringify(updatedUser));
       toast[isInWishlist ? "warning" : "success"](

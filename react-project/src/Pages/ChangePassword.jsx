@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { AuthContext } from "../Context/Authcontext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { BaseUrl } from "../Services/api";
 
 const ChangePassword = () => {
   const { user, setUser } = useContext(AuthContext);
@@ -32,8 +33,8 @@ const ChangePassword = () => {
     setLoading(true);
     try {
       const updatedUser = { ...user, password: passwords.newPassword };
-      
-      await axios.put(`http://localhost:3001/users/${user.id}`, updatedUser);
+
+      await axios.put(`${BaseUrl}/users/${user.id}`, updatedUser);
       setUser(updatedUser);
       localStorage.setItem("user", JSON.stringify(updatedUser));
       

@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/Authcontext";
+import { BaseUrl } from "../../Services/api";
 
 function Register() {
   const { user } = useContext(AuthContext); 
@@ -52,7 +53,7 @@ function Register() {
     try {
       const { name, email, password } = formData;
 
-      const res = await axios.get(`http://localhost:3001/users?email=${email}`);
+      const res = await axios.get(`${BaseUrl}/users?email=${email}`);
       if (res.data.length > 0) {
         setMessage({ text: "Email already registered", type: "error" });
         return;
@@ -70,7 +71,7 @@ function Register() {
         created_at: new Date().toISOString()
       };
 
-      await axios.post("http://localhost:3001/users", newUser);
+      await axios.post(`${BaseUrl}/users`, newUser);
       setMessage({ text: "Registration successful", type: "success" });
 
       setTimeout(() => {

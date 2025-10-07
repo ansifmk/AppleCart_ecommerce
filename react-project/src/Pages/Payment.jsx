@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../Context/Authcontext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { BaseUrl } from "../Services/api";
 
 const Payment = () => {
   const { user, setUser } = useContext(AuthContext);
@@ -96,10 +97,10 @@ const Payment = () => {
 
     try {
       for (const item of user.cart) {
-        const productRes = await axios.get(`http://localhost:3001/products/${item.id}`);
+        const productRes = await axios.get(`${BaseUrl}/products/${item.id}`);
         const product = productRes.data;
         const updatedCount = product.count - item.quantity;
-        await axios.put(`http://localhost:3001/products/${item.id}`, { ...product, count: updatedCount });
+        await axios.put(`${BaseUrl}/products/${item.id}`, { ...product, count: updatedCount });
       }
 
       const newOrder = {
@@ -124,7 +125,7 @@ const Payment = () => {
         cart: [],
       };
 
-      await axios.put(`http://localhost:3001/users/${user.id}`, updatedUser);
+      await axios.put(`${BaseUrl}/users/${user.id}`, updatedUser);
       setUser(updatedUser);
       localStorage.setItem("user", JSON.stringify(updatedUser));
 

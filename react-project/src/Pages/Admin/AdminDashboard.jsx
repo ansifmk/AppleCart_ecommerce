@@ -16,8 +16,8 @@ const AdminDashboard = () => {
     try {
       setLoading(true);
       const [usersRes, productsRes] = await Promise.all([
-        fetch('http://localhost:3001/users'),
-        fetch('http://localhost:3001/products')
+        fetch(`${BaseUrl}/users`),
+        fetch(`${BaseUrl}/products`),
       ]);
 
       if (!usersRes.ok || !productsRes.ok) {

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/Authcontext";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BaseUrl } from "../Services/api";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -17,7 +18,7 @@ const Products = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/products")
+      .get(`${BaseUrl}/products`)
       .then((res) => setProducts(res.data))
       .catch(() => toast.error("Failed to load products"))
       .finally(() => setLoading(false));
@@ -45,7 +46,7 @@ const Products = () => {
       ? user.wishlist.filter((i) => i.id !== product.id)
       : [...(user.wishlist || []), product];
 
-    await axios.patch(`http://localhost:3001/users/${user.id}`, {
+    await axios.patch(`${BaseUrl}/users/${user.id}`, {
       wishlist: updatedWishlist,
     });
 
@@ -73,7 +74,7 @@ const addToCart = async (product, e) => {
     updatedCart = [...(user.cart || []), { ...product, quantity: 1 }];
   }
 
-  await axios.patch(`http://localhost:3001/users/${user.id}`, {
+  await axios.patch(`${BaseUrl}/users/${user.id}`, {
     cart: updatedCart,
   });
 

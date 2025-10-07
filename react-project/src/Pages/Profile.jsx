@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {toast,ToastContainer}from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BaseUrl } from "../Services/api";
 const Profile = () => {
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -76,7 +77,7 @@ const Profile = () => {
     setLoading(true);
     try {
       const updatedUser = { ...user, ...formData, addresses };
-      await axios.put(`http://localhost:3001/users/${user.id}`, updatedUser);
+      await axios.put(`${BaseUrl}/users/${user.id}`, updatedUser);
       setUser(updatedUser);
       localStorage.setItem("user", JSON.stringify(updatedUser));
       setIsEditing(false);

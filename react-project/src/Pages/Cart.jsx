@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../Context/Authcontext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BaseUrl } from "../Services/api";
 
 const Cart = () => {
   const { user, setUser } = useContext(AuthContext);
@@ -49,17 +50,17 @@ if (updatedQuantity < 1) {
             );
 
       const productRes = await axios.get(
-        `http://localhost:3001/products/${productId}`
+        `${BaseUrl}/products/${productId}`
       );
       const product = productRes.data;
       const appliedDelta = updatedQuantity - cartItem.quantity;
       const updatedCount = Math.max(product.count - appliedDelta, 0);
 
       await Promise.all([
-        axios.patch(`http://localhost:3001/users/${user.id}`, {
+        axios.patch(`${BaseUrl}/users/${user.id}`, {
           cart: updatedCart,
         }),
-        axios.patch(`http://localhost:3001/products/${productId}`, {
+        axios.patch(`${BaseUrl}/products/${productId}`, {
           count: updatedCount,
         }),
       ]);
@@ -83,7 +84,7 @@ if (updatedQuantity < 1) {
       if (!cartItem) return;
 
       const productRes = await axios.get(
-        `http://localhost:3001/products/${productId}`
+        `${BaseUrl}/products/${productId}`
       );
       const product = productRes.data;
       const updatedCount = product.count + cartItem.quantity;
@@ -91,10 +92,10 @@ if (updatedQuantity < 1) {
       const updatedCart = user.cart.filter((item) => item.id !== productId);
 
       await Promise.all([
-        axios.patch(`http://localhost:3001/users/${user.id}`, {
+        axios.patch(`${BaseUrl}/users/${user.id}`, {
           cart: updatedCart,
         }),
-        axios.patch(`http://localhost:3001/products/${productId}`, {
+        axios.patch(`${BaseUrl}/products/${productId}`, {
           count: updatedCount,
         }),
       ]);

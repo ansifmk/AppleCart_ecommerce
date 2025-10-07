@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Search, Plus, Package, AlertTriangle, DollarSign, Edit, Trash2, Image as ImageIcon } from "lucide-react";
+import { BaseUrl } from "../../Services/api";
 
 const ProductsManagement = () => {
   const [state, setState] = useState({
@@ -26,7 +27,7 @@ const ProductsManagement = () => {
   const fetchProducts = async () => {
     try {
       setState(prev => ({ ...prev, loading: true }));
-      const response = await fetch('http://localhost:3001/products');
+      const response = await fetch(`${BaseUrl}/products`);
       if (!response.ok) throw new Error('Failed to fetch products');
       const data = await response.json();
       setState(prev => ({ ...prev, products: data, loading: false }));
@@ -84,7 +85,7 @@ const productData = {
 };
 
   const success = await apiAction(
-    'http://localhost:3001/products',
+    `${BaseUrl}/products`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -122,7 +123,7 @@ const productData = {
     };
 
     const success = await apiAction(
-      `http://localhost:3001/products/${updatedProduct.id}`,
+      `${BaseUrl}/products/${updatedProduct.id}`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -141,7 +142,7 @@ const productData = {
     if (!window.confirm('Are you sure you want to delete this product?')) return;
     
     await apiAction(
-      `http://localhost:3001/products/${productId}`,
+      `${BaseUrl}/products/${productId}`,
       { method: 'DELETE' },
       'Product deleted successfully',
       'Failed to delete product'

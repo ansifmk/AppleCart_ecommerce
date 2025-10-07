@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { BaseUrl } from "../Services/api";
 
 export const AuthContext = createContext();
 
@@ -20,7 +21,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       const cleanEmail = email.trim().toLowerCase();
-      const res = await axios.get(`http://localhost:3001/users?email=${cleanEmail}`);
+      const res = await axios.get(`${BaseUrl}/users?email=${cleanEmail}`);
       if (res.data.length === 0) {
         throw new Error("User not found");
       }
@@ -51,7 +52,7 @@ export const AuthProvider = ({ children }) => {
   const refreshUser = async () => {
     if (!user) return;
     try {
-      const res = await axios.get(`http://localhost:3001/users/${user.id}`);
+      const res = await axios.get(`${BaseUrl}/users/${user.id}`);
       setUser(res.data);
       localStorage.setItem("user", JSON.stringify(res.data));
     } catch (err) {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Search, Ban, CheckCircle, Trash2, Eye } from "lucide-react";
 import UserDetailsModal from "./UserDetailsModal";
+import { BaseUrl } from "../../Services/api";
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
@@ -43,7 +44,7 @@ const AdminUsers = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch("http://localhost:3001/users");
+      const response = await fetch(`${BaseUrl}}/users`);
       const usersData = await response.json();
       setUsers(usersData);
     } catch (err) {
@@ -55,7 +56,7 @@ const AdminUsers = () => {
 
   const toggleBlock = async (userId, currentStatus) => {
     try {
-      await fetch(`http://localhost:3001/users/${userId}`, {
+      await fetch(`${BaseUrl}}/users/${userId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ isBlock: !currentStatus }),
@@ -77,7 +78,7 @@ const AdminUsers = () => {
 
   const deleteUser = async (userId) => {
     try {
-      await fetch(`http://localhost:3001/users/${userId}`, {
+      await fetch(`${BaseUrl}}/users/${userId}`, {
         method: "DELETE",
       });
       setUsers(users.filter((user) => user.id !== userId));

@@ -8,6 +8,7 @@ import {
   FaTruck,
   FaTimesCircle,
 } from "react-icons/fa";
+import { BaseUrl } from "../Services/api";
 
 const MyOrders = () => {
   const { user, setUser } = useContext(AuthContext);
@@ -19,7 +20,7 @@ const MyOrders = () => {
     const fetchUser = async () => {
       try {
         if (!user?.id) return;
-        const res = await axios.get(`http://localhost:3001/users/${user.id}`);
+        const res = await axios.get(`${BaseUrl}/users/${user.id}`);
         setUser(res.data);
         localStorage.setItem("user", JSON.stringify(res.data));
       } catch (err) {
@@ -42,12 +43,12 @@ const MyOrders = () => {
       // restore product stock
       for (const item of order.items) {
         const productRes = await axios.get(
-          `http://localhost:3001/products/${item.id}`
+          `${BaseUrl}/products/${item.id}`
         );
         const product = productRes.data;
         const updatedCount = product.count + item.quantity;
 
-        await axios.patch(`http://localhost:3001/products/${item.id}`, {
+        await axios.patch(`${BaseUrl}/products/${item.id}`, {
           count: updatedCount,
         });
       }
@@ -58,7 +59,7 @@ const MyOrders = () => {
       );
 
       const updatedUser = { ...user, orders: updatedOrders };
-      await axios.patch(`http://localhost:3001/users/${user.id}`, {
+      await axios.patch(`${BaseUrl}/users/${user.id}`, {
         orders: updatedOrders,
       });
 

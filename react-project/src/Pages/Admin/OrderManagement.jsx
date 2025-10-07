@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Search, Package, DollarSign, Truck, CheckCircle, AlertCircle, Clock } from "lucide-react";
+import { BaseUrl } from "../../Services/api";
 
 const OrderManagement = () => {
   const [users, setUsers] = useState([]);
@@ -12,7 +13,7 @@ const OrderManagement = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:3001/users');
+      const response = await fetch(`${BaseUrl}/users`);
       if (!response.ok) throw new Error('Failed to fetch data');
       const usersData = await response.json();
       setUsers(usersData);
@@ -91,7 +92,7 @@ const OrderManagement = () => {
         }
         return user;
       });
-     const response = await fetch(`http://localhost:3001/users/${userWithOrder.id}`, {
+     const response = await fetch(`${BaseUrl}/users/${userWithOrder.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedUsers.find(user => user.id === userWithOrder.id)),

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/Authcontext";
+import { BaseUrl } from "../Services/api";
 
 const Wishlist = () => {
   const { user, setUser } = useContext(AuthContext); 
@@ -26,7 +27,7 @@ const Wishlist = () => {
   const removeFromWishlist = async (productId) => {
     try {
       const updatedWishlist = wishlistItems.filter((item) => item.id !== productId);
-      await axios.put(`http://localhost:3001/users/${user.id}`, {
+      await axios.put(`${BaseUrl}/users/${user.id}`, {
         ...user,
         wishlist: updatedWishlist,
       });
@@ -56,7 +57,7 @@ const Wishlist = () => {
         updatedCart = [...updatedCart, { ...product, quantity: 1 }];
       }
 
-      await axios.put(`http://localhost:3001/users/${user.id}`, {
+      await axios.put(`${BaseUrl}/users/${user.id}`, {
         ...user,
         cart: updatedCart,
       });

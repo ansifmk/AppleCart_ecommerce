@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { BaseUrl } from "../Services/api";
 
 const HighlightProducts = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const HighlightProducts = () => {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:3001/products");
+      const response = await fetch(`${BaseUrl}/products`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

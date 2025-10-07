@@ -56,7 +56,7 @@ const AdminUsers = () => {
 
   const toggleBlock = async (userId, currentStatus) => {
     try {
-      await fetch(`${BaseUrl}}/users/${userId}`, {
+      await fetch(`${BaseUrl}/users/${userId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ isBlock: !currentStatus }),
@@ -78,7 +78,7 @@ const AdminUsers = () => {
 
   const deleteUser = async (userId) => {
     try {
-      await fetch(`${BaseUrl}}/users/${userId}`, {
+      await fetch(`${BaseUrl}/users/${userId}`, {
         method: "DELETE",
       });
       setUsers(users.filter((user) => user.id !== userId));

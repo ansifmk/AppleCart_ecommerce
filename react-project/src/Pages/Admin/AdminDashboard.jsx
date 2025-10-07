@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { Users, Package, ShoppingCart, DollarSign } from 'lucide-react';
+import { BaseUrl } from '../../Services/api';
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);

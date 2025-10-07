@@ -23,7 +23,7 @@ const AdminLayout = () => {
           <Route path="/" element={<AdminDashboard />} />
           <Route path="/users" element={<AdminUsers />} />
           <Route path="/products" element={<ProductsManagement />} />
-          <Route path="/orders" element={<OrderManagement />} />
+          <Route path="/orders" element={<OrderManagement />} /> 
         </Routes>
       </div>
     </div>
